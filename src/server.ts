@@ -3,9 +3,22 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import jsonServer from 'json-server';
+import path from 'node:path';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const app = express();
+
+const jsonServerApp = jsonServer.create();
+
+const dbPath = path.resolve(process.cwd(), 'data/db.json');
+
+jsonServerApp.use(jsonServer.defaults());
+jsonServerApp.use(jsonServer.router(dbPath));
+
+jsonServerApp.listen(3001, '127.0.0.1', () => {
+  console.log('json-server running internally on port 3001');
+});
 
 const ACCESS_TOKEN_SECRET = 'my-access-secret';
 const REFRESH_TOKEN_SECRET = 'my-refresh-secret';
@@ -487,6 +500,12 @@ app.use(
 // Start Server
 // ======================================================
 
-app.listen(3000, () => {
-  console.log('Express running on http://localhost:3000');
+const PORT = Number(process.env.PORT) || 3000;
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Express running on port ${PORT}`);
 });
+
+// app.listen(3000, () => {
+//   console.log('Express running on http://localhost:3000');
+// });
