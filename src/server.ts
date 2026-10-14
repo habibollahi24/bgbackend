@@ -38,12 +38,12 @@ type AuthRequest = express.Request & {
 // Middlewares
 // ======================================================
 
-app.use(
-  cors({
-    origin: 'http://localhost:4200',
-    credentials: true,
-  }),
-);
+app.use(cors());
+
+// {
+//     origin: 'http://localhost:4200',
+//     credentials: true,
+//   }
 
 app.use(express.json());
 
