@@ -133,8 +133,8 @@ app.post('/auth/login', async (req, res) => {
         // HttpOnly Cookie
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: false,
-            sameSite: 'lax',
+            secure: true,
+            sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
         // Remove password from response
@@ -328,8 +328,8 @@ app.post('/auth/register', async (req, res) => {
         // --------------------------
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: false,
-            sameSite: 'lax',
+            secure: true,
+            sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
         // --------------------------
