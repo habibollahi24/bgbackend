@@ -38,7 +38,17 @@ type AuthRequest = express.Request & {
 // Middlewares
 // ======================================================
 
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:4200',
+  'https://mini-erp-sable.vercel.app',
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }),
+);
 
 // {
 //     origin: 'http://localhost:4200',
